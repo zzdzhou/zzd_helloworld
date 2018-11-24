@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Time sheet</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
+    <!--<style type="text/css">
+        /*body {
+            margin-left: 8%;
+            margin-right: 5%;
+        }*/
+        h1 {
+            margin-left: -5%;
+        }
+    </style>-->
+</head>
+<body>
+<h1 th:if="${#lists.isEmpty(allAc)}">No activity now!</h1>
+<div class="container" th:if="${!#lists.isEmpty(allAc)}">
+    <h1>There are all activities:</h1><br>
+    <!--<h2>test h2</h2>-->
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Activity</th>
+            <th>Type</th>
+            <th>Done by</th>
+            <th>Days used</th>
+            <th>Description</th>
+        </tr>
+        <tr class="active" th:each="ac : ${allAc}">
+            <td th:text="${ac.id}">null</td>
+            <td th:text="${ac.date}">null</td>
+            <td th:text="${ac.activity}">null</td>
+            <td th:text="${ac.type}">null</td>
+            <td th:text="${ac.resource}">null</td>
+            <td th:text="${ac.days}">null</td>
+            <td th:text="${ac.description}">null</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

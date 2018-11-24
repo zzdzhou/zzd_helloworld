@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/goodthymes/css/index.css">
+</head>
+<body>
+<div class="container">
+    <br><br>
+    <div id="div-form">
+        <p th:if="${error} != null" th:text="${error}"></p>
+        <form action="/goodthymes/customer/login" method="post" role="form">
+            <div class="form-group">
+                <label for="email-phone"><strong>Email or phone number</strong></label>
+                <input type="text" id="email-phone" class="form-control" name="emailOrPhone" placeholder="Email/phone"/>
+            </div>
+            <div>
+                <label for="password"><strong>Password</strong></label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password">
+            </div><br>
+
+            <input type="submit" class="signIn" value="Sign in"><br><br>
+
+            <button type="button" class="signUp" onclick="location.href='/goodthymes/customer/registration.html'">Sign up</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

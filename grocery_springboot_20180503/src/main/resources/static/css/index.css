@@ -1,0 +1,21 @@
+#div-form {
+    width: 30%;
+    /*align-content: center;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signIn {
+    width: 100%;
+    background: #f3d078;
+    
+}
+
+.signUp {
+    width: 100%;
+    background: #e7eaf0;
+}
+
+p {
+    color: red;
+}
