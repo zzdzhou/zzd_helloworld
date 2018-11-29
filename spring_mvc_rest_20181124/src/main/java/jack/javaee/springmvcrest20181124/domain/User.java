@@ -1,5 +1,7 @@
 package jack.javaee.springmvcrest20181124.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Theme:
  * <p>
@@ -8,6 +10,7 @@ package jack.javaee.springmvcrest20181124.domain;
  * @author Zhengde ZHOU
  * Created on 2018-11-29
  */
+@XmlRootElement
 public class User {
 
     private int id;

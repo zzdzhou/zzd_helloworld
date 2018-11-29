@@ -1,6 +1,7 @@
 package jack.javaee.springmvcrest20181124.restcontroller;
 
 import jack.javaee.springmvcrest20181124.domain.User;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserRestController {
 
-    @RequestMapping("/echo")
+    @PostMapping(value = "/echo")
     public User user(@RequestBody User user) {
         return user;
     }
