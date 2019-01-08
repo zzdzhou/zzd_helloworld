@@ -2,11 +2,11 @@ package jack.tools.calender;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * Theme:
@@ -18,6 +18,28 @@ import java.util.Set;
  */
 public class CalendarTool {
 
+    public static final HashSet<LocalDate> NON_WORKING_DAYS = new HashSet<>();
+
+    static {
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 1, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 5));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 6));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 7));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 5));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 19));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 20));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 22));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 5, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 5, 13));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 6, 7));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 7, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 9, 14));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 10, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 10, 7));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 12, 25));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 12, 26));
+    };
+
 
     public static List<Calendar> generateCalendar(String country, String brand, String calendarCode, int year, Set<LocalDate> nonWorkingDays)
             throws Exception {
@@ -27,21 +49,57 @@ public class CalendarTool {
         }
 
         List<Calendar> calendars = new ArrayList<>();
-        int totalWorkingDays = Period.between(LocalDate.of(year, 1, 1), LocalDate.of(year-1, 1, 1)).getDays();
-        for (int i = 1; i < 365; i++) {
+        final int totalDays = (int) Duration
+                .between(LocalDate.of(year - 1, 1, 1).atStartOfDay(), LocalDate.of(year, 1, 1).atStartOfDay())
+                .toDays();
+        int workingDayNumer = 0;
+        int nonWorkingDayNumer = 0;
+        final DateTimeFormatter weekFormatter = DateTimeFormatter.ofPattern("E", Locale.ENGLISH);
+
+        LocalDate localDate;
+        for (int i = 1; i <= totalDays; i++) {
+            localDate = LocalDate.ofYearDay(year, i);
             Calendar calendar = new Calendar(country, brand, calendarCode, year);
-            calendar.setTotalNonWorkingDays(totalWorkingDays);
+            // done
+            calendar.setMonth(localDate.getMonthValue());
+            // done
+            calendar.setYearMonthDay(localDate);
+            // done
+            if (localDate.getDayOfWeek().ordinal() + 1 >= 6 || nonWorkingDays.contains(localDate)/*todo*/) {
+                calendar.setNonWorkingDayFlag(true);
+                nonWorkingDayNumer++;
+            } else {
+                calendar.setNonWorkingDayFlag(false);
+                workingDayNumer++;
+            }
+            // done
+            calendar.setWorkingDayNumer(workingDayNumer);
+            // done
+            calendar.setNonWorkingDayNumer(nonWorkingDayNumer);
+            // done
+            calendar.setNonWorkingDayCarrierFlag(calendar.isNonWorkingDayFlag());
+            // done
+            calendar.setWeekday(localDate.format(weekFormatter).toUpperCase());
+            calendars.add(calendar);
         }
 
-
-
+        for (Calendar item : calendars) {
+            item.setTotalWorkingDays(workingDayNumer);
+            item.setTotalNonWorkingDays(nonWorkingDayNumer);
+        }
         return calendars;
-
     }
 
 
     public static void generateSql(List<Calendar> calendars, String path) {
 
+    }
+
+    private boolean isNonWorkingDay(LocalDate date, Set<LocalDate> nonWorkingDays) {
+        if (date.getDayOfWeek().ordinal() + 1 >= 6 || nonWorkingDays.contains(date)) {
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {

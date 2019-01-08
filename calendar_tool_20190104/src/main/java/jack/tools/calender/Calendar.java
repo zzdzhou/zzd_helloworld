@@ -1,6 +1,7 @@
 package jack.tools.calender;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Theme:
@@ -89,11 +90,16 @@ public class Calendar {
         this.weekday = weekday;
     }
 
+    public boolean isNonWorkingDayFlag() {
+        return nonWorkingDayFlag;
+    }
+
     @Override
     public String toString() {
         return "('" + country + "', '" + brand + "', '" + calendarCode + "', " + year + ", " + totalWorkingDays + ", "
-                + totalNonWorkingDays + ", " + month + ", '" + yearMonthDay + "', " + (nonWorkingDayFlag?1:0) + ", " + workingDayNumer
-                + ", " + nonWorkingDayNumer + ", " + (nonWorkingDayCarrierFlag?1:0) + ", " + weekday + ")";
+                + totalNonWorkingDays + ", " + month + ", '" + this.yearMonthDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
+                + "', " + (nonWorkingDayFlag?1:0) + ", " + workingDayNumer + ", " + nonWorkingDayNumer + ", "
+                + (nonWorkingDayCarrierFlag?1:0) + ", '" + weekday + "'),\n";
     }
 
 }
