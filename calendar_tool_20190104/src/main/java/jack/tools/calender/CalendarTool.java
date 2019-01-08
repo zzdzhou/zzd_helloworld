@@ -1,7 +1,6 @@
 package jack.tools.calender;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -20,7 +19,7 @@ import java.util.Set;
 public class CalendarTool {
 
 
-    public static List<Calendar> generateCalendar(String country, String brand, String calendarCode, int year, Set<LocalDate> nonWorkdingDays)
+    public static List<Calendar> generateCalendar(String country, String brand, String calendarCode, int year, Set<LocalDate> nonWorkingDays)
             throws Exception {
         if (StringUtils.isBlank(country) || StringUtils.isBlank(brand) || StringUtils.isBlank(calendarCode)
                 || year > LocalDate.now().getYear() + 1 || year < LocalDate.now().getYear()) {
@@ -49,11 +48,6 @@ public class CalendarTool {
 
     }
 
-    @Test
-    public void test() {
-        int year = 2019;
-        int totalWorkingDays = Period.between(LocalDate.of(year-1, 1, 1), LocalDate.of(year, 1, 1)).getDays();
-        System.out.println(totalWorkingDays);
-    }
+
 
 }
