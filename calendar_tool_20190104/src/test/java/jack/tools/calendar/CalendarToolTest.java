@@ -4,6 +4,8 @@ import jack.tools.calender.Calendar;
 import jack.tools.calender.CalendarTool;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -84,10 +86,19 @@ public class CalendarToolTest {
         try {
             List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, CalendarTool.NON_WORKING_DAYS);
             System.out.println(calendars);
+            CalendarTool.generateSql(calendars, "C:\\Users\\zzd16\\Desktop\\zzd_helloworld\\calendar_tool_20190104\\calendar.sql");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    @Test
+    public void testFile() throws IOException {
+        File file = new File("C:\\Users\\zzd16\\Desktop\\zzd_helloworld\\calendar_tool_20190104\\output");
+        if (!file.exists()) {
+            boolean newFile = file.createNewFile();
+
+        }
     }
 
 }

@@ -1,12 +1,16 @@
 package jack.tools.calender;
 
 import org.apache.commons.lang3.StringUtils;
+import sun.util.resources.CalendarData;
 
+import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static com.sun.deploy.cache.Cache.exists;
 
 /**
  * Theme:
@@ -90,9 +94,27 @@ public class CalendarTool {
         return calendars;
     }
 
-
-    public static void generateSql(List<Calendar> calendars, String path) {
-
+    public static void generateSql(List<Calendar> calendars, String pathDir) throws Exception {
+        if (calendars == null || calendars.size() == 0) {
+            throw new Exception("calendars 参数错误");
+        }
+        String filename = calendars.get(0).getBrand() + "_" + calendars.get(0).getCountry() + "_calendar.sql";
+        // 输出文件的目录必须存在，文件本身可以不存在
+        File parentDir = new File(pathDir);
+        if (!parentDir.exists() && !parentDir.mkdirs()) {
+            throw new IOException(String.format("目录 %s 不存在且创建失败", parentDir));
+        }
+        BufferedWriter out = new BufferedWriter(new FileWriter(pathDir + File.separator + filename));
+        out.write(Calendar.INSERT_PREFIX); // 输出之前可以不需要输入，可直接输出指定内容
+        for (int i = 0; i < calendars.size(); i++) {
+            if (i == calendars.size() - 1) {
+                out.write(calendars.get(i).toString() + ";\n");
+            } else {
+                out.write(calendars.get(i).toString() + ",\n");
+            }
+        }
+        out.write(Calendar.INSERT_SUFFIX);
+        out.close();
     }
 
     private boolean isNonWorkingDay(LocalDate date, Set<LocalDate> nonWorkingDays) {
@@ -103,9 +125,12 @@ public class CalendarTool {
     }
 
     public static void main(String[] args) {
-
+        try {
+            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, CalendarTool.NON_WORKING_DAYS);
+            CalendarTool.generateSql(calendars, "C:\\Users\\zzd16\\Desktop\\output");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
 
 }

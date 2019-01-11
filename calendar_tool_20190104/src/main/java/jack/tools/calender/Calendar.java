@@ -90,6 +90,14 @@ public class Calendar {
         this.weekday = weekday;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
     public boolean isNonWorkingDayFlag() {
         return nonWorkingDayFlag;
     }
@@ -99,7 +107,7 @@ public class Calendar {
         return "('" + country + "', '" + brand + "', '" + calendarCode + "', " + year + ", " + totalWorkingDays + ", "
                 + totalNonWorkingDays + ", " + month + ", '" + this.yearMonthDay.format(DateTimeFormatter.ISO_LOCAL_DATE)
                 + "', " + (nonWorkingDayFlag?1:0) + ", " + workingDayNumer + ", " + nonWorkingDayNumer + ", "
-                + (nonWorkingDayCarrierFlag?1:0) + ", '" + weekday + "'),\n";
+                + (nonWorkingDayCarrierFlag?1:0) + ", '" + weekday + "')";
     }
 
 }
