@@ -8,8 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Theme:
@@ -20,6 +22,28 @@ import java.util.Locale;
  * Created on 2019-01-08
  */
 public class CalendarToolTest {
+
+    public static final HashSet<LocalDate> NON_WORKING_DAYS = new HashSet<>();
+
+    static {
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 1, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 5));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 6));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 7));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 5));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 19));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 20));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 22));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 5, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 5, 13));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 6, 7));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 7, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 9, 14));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 10, 1));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 10, 7));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 12, 25));
+        NON_WORKING_DAYS.add(LocalDate.of(2019, 12, 26));
+    };
 
     @Test
     public void test() {
@@ -84,7 +108,7 @@ public class CalendarToolTest {
     @Test
     public void generateCalendar() {
         try {
-            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, CalendarTool.NON_WORKING_DAYS);
+            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, NON_WORKING_DAYS);
             System.out.println(calendars);
             CalendarTool.generateSql(calendars, "C:\\Users\\zzd16\\Desktop\\zzd_helloworld\\calendar_tool_20190104\\calendar.sql");
         } catch (Exception e) {
@@ -99,6 +123,14 @@ public class CalendarToolTest {
             boolean newFile = file.createNewFile();
 
         }
+    }
+
+    @Test
+    public void testXlsx() throws Exception {
+        String xlsx = "C:\\Users\\zzd16\\Desktop\\zzd_helloworld\\calendar_tool_20190104\\src\\main\\resources\\Public Holidays 2019 (APAC).xlsx";
+        Set<LocalDate> holidaysFromXlsx = CalendarTool.getHolidaysFromXlsx(xlsx);
+
+        System.out.println(holidaysFromXlsx);
     }
 
 }

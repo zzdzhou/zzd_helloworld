@@ -1,16 +1,18 @@
 package jack.tools.calender;
 
 import org.apache.commons.lang3.StringUtils;
-import sun.util.resources.CalendarData;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.usermodel.*;
 
-import java.io.*;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Period;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
-
-import static com.sun.deploy.cache.Cache.exists;
 
 /**
  * Theme:
@@ -22,28 +24,17 @@ import static com.sun.deploy.cache.Cache.exists;
  */
 public class CalendarTool {
 
-    public static final HashSet<LocalDate> NON_WORKING_DAYS = new HashSet<>();
+    private static final Logger logger = LogManager.getLogger(CalendarTool.class);
 
-    static {
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 1, 1));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 5));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 6));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 2, 7));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 5));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 19));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 20));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 4, 22));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 5, 1));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 5, 13));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 6, 7));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 7, 1));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 9, 14));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 10, 1));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 10, 7));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 12, 25));
-        NON_WORKING_DAYS.add(LocalDate.of(2019, 12, 26));
-    };
-
+    public static void main(String[] args) {
+        try {
+            String xlsx = "C:\\Users\\zzd16\\Desktop\\output\\Public Holidays 2019 (APAC).xlsx";
+            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, getHolidaysFromXlsx(xlsx));
+            CalendarTool.generateSql(calendars, "C:\\Users\\zzd16\\Desktop\\output");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static List<Calendar> generateCalendar(String country, String brand, String calendarCode, int year, Set<LocalDate> nonWorkingDays)
             throws Exception {
@@ -69,7 +60,7 @@ public class CalendarTool {
             // done
             calendar.setYearMonthDay(localDate);
             // done
-            if (localDate.getDayOfWeek().ordinal() + 1 >= 6 || nonWorkingDays.contains(localDate)/*todo*/) {
+            if (localDate.getDayOfWeek().ordinal() + 1 >= 6 || nonWorkingDays.contains(localDate)) {
                 calendar.setNonWorkingDayFlag(true);
                 nonWorkingDayNumer++;
             } else {
@@ -117,20 +108,42 @@ public class CalendarTool {
         out.close();
     }
 
-    private boolean isNonWorkingDay(LocalDate date, Set<LocalDate> nonWorkingDays) {
-        if (date.getDayOfWeek().ordinal() + 1 >= 6 || nonWorkingDays.contains(date)) {
-            return true;
+    /**
+     * 1. @param xlsxName 是一个真实存在的 .xlsx 文件的绝对路径
+     * 2. xlsxName 文件只有一张工作表
+     * 3. 假日日期必须位于工作表的第一列
+     * 4. 假日日期从第二行开始，且格式与 1-Jan 相同
+     * @param xlsxName
+     * @return
+     * @throws Exception
+     */
+    public static Set<LocalDate> getHolidaysFromXlsx(String xlsxName) throws Exception {
+        File xlsxFile = new File(xlsxName);
+        if (!xlsxFile.isFile()) {
+            throw new Exception(String.format("%s 不是一个真实的文件", xlsxFile));
         }
-        return false;
-    }
 
-    public static void main(String[] args) {
-        try {
-            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, CalendarTool.NON_WORKING_DAYS);
-            CalendarTool.generateSql(calendars, "C:\\Users\\zzd16\\Desktop\\output");
-        } catch (Exception e) {
-            e.printStackTrace();
+        HashSet<LocalDate> calendars = new HashSet<>();
+        final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-EE");
+
+        Workbook workbook = WorkbookFactory.create(xlsxFile);
+        Sheet sheet = workbook.getSheetAt(0);
+        Optional<Date> dateOpt;
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            dateOpt = Optional.ofNullable(sheet.getRow(i)).map(row -> row.getCell(0)).map(Cell::getDateCellValue);
+            if (dateOpt.isPresent()) {
+                try {
+                    LocalDateTime localDateTime = LocalDateTime.ofInstant(dateOpt.get().toInstant(), ZoneId.systemDefault());
+                    calendars.add(LocalDate.ofYearDay(localDateTime.getYear(), localDateTime.getDayOfYear()));
+                } catch (DateTimeParseException e) {
+                    logger.info("%s 不是一个类似于 1-Jan 格式的日期值", dateOpt.get());
+                }
+            }
         }
+        return calendars;
     }
 
 }
+
+
+
