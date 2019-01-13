@@ -24,7 +24,7 @@ import java.util.*;
  */
 public class CalendarTool {
 
-    private static final Logger logger = LogManager.getLogger(CalendarTool.class);
+//    private static final Logger logger = LogManager.getLogger(CalendarTool.class);
 
     public static void main(String[] args) {
         try {
@@ -110,9 +110,8 @@ public class CalendarTool {
 
     /**
      * 1. @param xlsxName 是一个真实存在的 .xlsx 文件的绝对路径
-     * 2. xlsxName 文件只有一张工作表
-     * 3. 假日日期必须位于工作表的第一列
-     * 4. 假日日期从第二行开始，且格式与 1-Jan 相同
+     * 2. 本程序只读取 xlsxName 文件的第一张工作表
+     * 3. 假日日期必须位于工作表的第一列，可散落在任意行，但单元格格式必须为 excel 日期格式（任意日期格式）
      * @param xlsxName
      * @return
      * @throws Exception
@@ -124,19 +123,19 @@ public class CalendarTool {
         }
 
         HashSet<LocalDate> calendars = new HashSet<>();
-        final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-EE");
+        //final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-EE");
 
         Workbook workbook = WorkbookFactory.create(xlsxFile);
         Sheet sheet = workbook.getSheetAt(0);
+        Optional<Cell> cellOpt;
         Optional<Date> dateOpt;
-        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-            dateOpt = Optional.ofNullable(sheet.getRow(i)).map(row -> row.getCell(0)).map(Cell::getDateCellValue);
-            if (dateOpt.isPresent()) {
-                try {
+        for (Row item: sheet) {
+            cellOpt = Optional.ofNullable(item).map(row -> row.getCell(0));
+            if (cellOpt.isPresent() && cellOpt.get().getCellTypeEnum().equals(CellType.NUMERIC)) {
+                dateOpt = cellOpt.map(Cell::getDateCellValue);
+                if (dateOpt.isPresent()) {
                     LocalDateTime localDateTime = LocalDateTime.ofInstant(dateOpt.get().toInstant(), ZoneId.systemDefault());
                     calendars.add(LocalDate.ofYearDay(localDateTime.getYear(), localDateTime.getDayOfYear()));
-                } catch (DateTimeParseException e) {
-                    logger.info("%s 不是一个类似于 1-Jan 格式的日期值", dateOpt.get());
                 }
             }
         }
