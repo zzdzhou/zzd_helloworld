@@ -108,7 +108,7 @@ public class CalendarToolTest {
     @Test
     public void generateCalendar() {
         try {
-            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, NON_WORKING_DAYS);
+            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, NON_WORKING_DAYS, 6);
             System.out.println(calendars);
             CalendarTool.generateSql(calendars, "C:\\Users\\zzd16\\Desktop\\zzd_helloworld\\calendar_tool_20190104\\calendar.sql");
         } catch (Exception e) {
