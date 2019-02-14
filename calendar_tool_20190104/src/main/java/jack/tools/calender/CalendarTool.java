@@ -24,19 +24,28 @@ import java.util.*;
  */
 public class CalendarTool {
 
-//    private static final Logger logger = LogManager.getLogger(CalendarTool.class);
+    private static final Logger logger = LogManager.getLogger(CalendarTool.class);
 
     public static void main(String[] args) {
         try {
-            String xlsx = "C:\\Users\\zzd16\\Desktop\\output\\Public Holidays 2019 (APAC).xlsx";
-            List<Calendar> calendars = CalendarTool.generateCalendar("HK", "CA", "HK", 2019, getHolidaysFromXlsx(xlsx));
-            CalendarTool.generateSql(calendars, "C:\\Users\\zzd16\\Desktop\\output");
+            if (args == null || args.length != 6) {
+                logger.error("参数错误，请参考以下示例\nCA HK HK 2019 6 \"C:\\Users\\D1M\\Desktop\\output\\Public Holidays 2019 (APAC).xlsx\"");
+            }
+            String brand = args[0];
+            String country = args[1];
+            String calendarCode = args[2];
+            int year = Integer.valueOf(args[3]);
+            int weekendFrom = Integer.valueOf(args[4]);
+            String xlsx = args[5];
+
+            List<Calendar> calendars = CalendarTool.generateCalendar(brand, country, calendarCode, year, getHolidaysFromXlsx(xlsx), weekendFrom);
+            CalendarTool.generateSql(calendars, new File(xlsx).getParent());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static List<Calendar> generateCalendar(String country, String brand, String calendarCode, int year, Set<LocalDate> nonWorkingDays)
+    public static List<Calendar> generateCalendar(String brand, String country, String calendarCode, int year, Set<LocalDate> holidays, int weekendFrom)
             throws Exception {
         if (StringUtils.isBlank(country) || StringUtils.isBlank(brand) || StringUtils.isBlank(calendarCode)
                 || year > LocalDate.now().getYear() + 1 || year < LocalDate.now().getYear()) {
@@ -60,7 +69,7 @@ public class CalendarTool {
             // done
             calendar.setYearMonthDay(localDate);
             // done
-            if (localDate.getDayOfWeek().ordinal() + 1 >= 6 || nonWorkingDays.contains(localDate)) {
+            if (localDate.getDayOfWeek().ordinal() + 1 >= weekendFrom || holidays.contains(localDate)) {
                 calendar.setNonWorkingDayFlag(true);
                 nonWorkingDayNumer++;
             } else {
