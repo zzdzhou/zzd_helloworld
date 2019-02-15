@@ -1,5 +1,6 @@
 package jack.helloworld.jdbc;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Theme:
@@ -27,14 +29,14 @@ import java.sql.SQLException;
 public class DsServlet extends HttpServlet {
 
     private DataSource ds;
-    private InitialContext ctx;
+    private Context ctx;
 
     @Override
     public void init() throws ServletException {
         System.out.println("log -- DsServlet init()");
         try {
-            InitialContext ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("java:/datasources/mmalDS");
+            ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("datasources/mmalDS"); // JNDI Name java:/datasources/mmalDS
         } catch (NamingException e) {
             e.printStackTrace();
         }
