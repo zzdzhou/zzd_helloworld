@@ -8,12 +8,10 @@
     <persistence-unit name="OrderDB" transaction-type="RESOURCE_LOCAL">
         <description>Persistence unit for Hibernate</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
         <jta-data-source>java:/datasources/zhibernateDS</jta-data-source>
 
         <class>jack.jpa.entity.Customer</class>
         <class>jack.jpa.entity.Orders</class>
-
         <properties>
             <!--<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>-->
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/zhibernate?serverTimezone=GMT%2B7"/>-->
