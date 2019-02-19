@@ -14,13 +14,12 @@ import javax.persistence.Persistence;
  */
 public class UserDao {
 
-/*    @PersistenceUnit(unitName = "mmalUnit")
+    /*@PersistenceUnit(unitName = "mmalUnit")
     private EntityManagerFactory emf;*/
 
     private static EntityManager em;
 
     private EntityManager getEntityManager() {
-        //return (em == null)? emf.createEntityManager(): this.em;
         if (em == null) {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("mmalUnit");
             em = emf.createEntityManager();
