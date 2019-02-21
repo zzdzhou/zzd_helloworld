@@ -9,7 +9,7 @@
         <description>Persistence unit for Hibernate</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--<jta-data-source></jta-data-source>-->
-        <class>jack.helloworld.jpa.applicatonmanaged.EUser</class>
+        <class>jack.helloworld.spring.orm.jpa.entity.EUser</class>
         <exclude-unlisted-classes/>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -23,3 +23,5 @@
     </persistence-unit>
 
 </persistence>
+
+
