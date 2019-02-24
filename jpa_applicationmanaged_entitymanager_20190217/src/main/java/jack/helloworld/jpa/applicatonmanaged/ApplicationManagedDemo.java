@@ -12,7 +12,7 @@ public class ApplicationManagedDemo {
 
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
-        String email = userDao.getUserEmail(3);
+        String email = userDao.getEmail(3);
         System.out.printf("Hello World! Hello, %s", email);
     }
 

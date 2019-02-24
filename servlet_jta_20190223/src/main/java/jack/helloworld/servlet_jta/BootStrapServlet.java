@@ -18,7 +18,32 @@ import java.sql.Statement;
 /**
  * Theme:
  * <p>
+ * # JTA / bean-managed transaction(BMT) / transaction in web component
+ * # 4.1 Resource Injection
+ *
  * Description:
+ * # EJB CMT depends on EJB container, it is of declarative transaction management, but it is not available in web component
+ * # In web component, bean-managed transaction is only option, you must decide
+ * whether to use Java Database Connectivity(JDBC 本身也集成了transaction management功能) or JTA transactions.
+ *          -- refer to JTA_20190222.vsdx
+ *
+ * # Resource injection enables you to inject any resource available in the JNDI namespace
+ * into any container-managed object, such as a servlet, an enterprise bean, or a managed bean.
+ * # please note: @Resource(lookup = "java:/datasources/mmalDS") instead of @Resource(name = "java:/datasources/mmalDS") for global JNDI name
+ *
+ * Next
+ * # 请参考 Spring_Framework_Data_Access_20190217.vsdx /ORM-JPA /Obtaining an EntityManagerFactory from JNDI
+ * 唯一的改变是：使用 JPA 而非 JDBC
+ * 其他不变，比如 in web component(Servlet), 使用 JTA, 使用 Jboss EAP 7.2 上已配置好的 DataSource Object
+ *
+ * #This action assumes standard Java EE bootstrapping.
+ * The Java EE server auto-detects persistence units (in effect, META-INF/persistence.xml files in application jars)
+ * and persistence-unit-ref entries in the Java EE deployment descriptor (for example, web.xml)
+ * and defines environment naming context locations for those persistence units.
+ * The JDBC DataSource is defined through a JNDI location in the META-INF/persistence.xml file.
+ * EntityManager transactions are integrated with the server’s JTA subsystem.
+ * Spring merely uses the obtained EntityManagerFactory, passing it on to application objects through dependency injection
+ * and managing transactions for the persistence unit (typically through JtaTransactionManager)
  *
  * @author Zhengde ZHOU
  * Created on 2019-02-23
@@ -34,7 +59,9 @@ public class BootStrapServlet extends HttpServlet {
     @Resource
     private UserTransaction userTx;
 
-    /*@Override
+    /*
+    // classic way to instantiate DataSource and UserTransaction
+    @Override
     public void init() throws ServletException {
         try {
             InitialContext ctx = new InitialContext();
@@ -69,11 +96,12 @@ public class BootStrapServlet extends HttpServlet {
             pstmt.setInt(1, 12);
             pstmt.executeUpdate();
             System.out.println("log DEBUG -- execute update 3");
-            // not commit if go to catch block before
+            // if end without error, commit
             userTx.commit();
         } catch (Exception e) {
             try {
                 System.out.println("log DEBUG -- rollback");
+                // rollback if go to catch block
                 userTx.rollback();
             } catch (SystemException e1) {
                 e1.printStackTrace();

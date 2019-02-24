@@ -6,8 +6,11 @@ ok / mysql + jpa(application-managed EntityManager)(Hibernate)
 
 
 
--- mvcjpa_20140415
-ok / Spring mvc + spring framework data access - JPA / spring container-managed EntityManager
+-- mvcjpa_20140415  / 20180415
+ok / Spring mvc + spring framework data access - JPA(hibernate) + thymeleaf
+## LocalContainerEntityManagerFactoryBean
+## org.apache.commons.dbcp2.BasicDataSource
+
 
 /src/main/resources/META-INF/persistence.xml
 

@@ -1,6 +1,5 @@
 package jack.web.mvcjpa.config;
 
-import com.mysql.jdbc.Driver;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

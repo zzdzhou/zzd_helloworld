@@ -8,9 +8,7 @@
     <persistence-unit name="mmalUnit" transaction-type="RESOURCE_LOCAL">
         <description>Persistence unit for Hibernate</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!--<jta-data-source></jta-data-source>-->
         <class>jack.helloworld.jpa.applicatonmanaged.EUser</class>
-        <exclude-unlisted-classes/>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mmal?serverTimezone=UTC"/>
