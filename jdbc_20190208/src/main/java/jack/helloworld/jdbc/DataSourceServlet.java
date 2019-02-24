@@ -1,5 +1,6 @@
 package jack.helloworld.jdbc;
 
+import javax.annotation.Resource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -25,21 +26,20 @@ import java.sql.SQLException;
  * Created on 2019-02-08
  */
 @WebServlet("/ds")
-public class DsServlet extends HttpServlet {
+public class DataSourceServlet extends HttpServlet {
 
+    @Resource(lookup = "java:/datasources/mmalDS")
     private DataSource ds;
-    private Context ctx;
 
-    @Override
+    /*@Override
     public void init() throws ServletException {
         System.out.println("log -- DsServlet init()");
         try {
-            ctx = new InitialContext();
-            ds = (DataSource) ctx.lookup("datasources/mmalDS"); // JNDI Name java:/datasources/mmalDS
+            ds = (DataSource) new InitialContext().lookup("datasources/mmalDS"); // JNDI Name java:/datasources/mmalDS
         } catch (NamingException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,7 +50,7 @@ public class DsServlet extends HttpServlet {
         try {
             con = ds.getConnection();
             pstmt = con.prepareStatement("select email from user where id = ?");
-            pstmt.setInt(1, 3);
+            pstmt.setInt(1, 2);
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 email = resultSet.getString("email");
