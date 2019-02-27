@@ -23,7 +23,7 @@ import javax.persistence.criteria.Root;
 public class UserDao {
 
     @PersistenceContext
-    private static EntityManager em;
+    private /*static*/ EntityManager em;
 
     public String getUserEmail(Integer userId) {
         return (String) em.createQuery("SELECT u.email FROM EUser u WHERE u.id = :id")

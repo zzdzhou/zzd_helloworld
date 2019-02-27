@@ -1,10 +1,12 @@
 package jack.helloworld.jpa;
 
-import com.google.protobuf.WireFormat;
 import jack.helloworld.jpa.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,11 +24,16 @@ import java.io.PrintWriter;
  * Created on 2019-02-25
  */
 @WebServlet("jpa")
-@Controller
+@Component
 public class BootstrapServlet extends HttpServlet {
 
     @Autowired
     private UserDao userDao;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
