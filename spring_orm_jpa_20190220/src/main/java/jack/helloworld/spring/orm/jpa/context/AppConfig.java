@@ -3,6 +3,7 @@ package jack.helloworld.spring.orm.jpa.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 
 /**
@@ -17,11 +18,15 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 @ComponentScan(basePackages = "jack.helloworld.spring.orm.jpa")
 public class AppConfig {
 
-    @Bean
+    /*@Bean
     public LocalEntityManagerFactoryBean myEntityManagerFactory() {
         LocalEntityManagerFactoryBean emf = new LocalEntityManagerFactoryBean();
         emf.setPersistenceUnitName("mmalUnit");
         return emf;
+    }*/
+
+    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
+        return null;
     }
 
 }
