@@ -2,7 +2,6 @@ package jack.helloworld.jpa;
 
 import jack.helloworld.jpa.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -24,7 +23,7 @@ import java.io.PrintWriter;
  * Created on 2019-02-25
  */
 @WebServlet("jpa")
-@Component
+@Controller
 public class BootstrapServlet extends HttpServlet {
 
     @Autowired
@@ -38,7 +37,6 @@ public class BootstrapServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = userDao.getEmail(3);
-//        System.out.printf("Hello World! Hello, %s", email);
         PrintWriter writer = resp.getWriter();
         writer.printf("Hello %s!", email);
     }

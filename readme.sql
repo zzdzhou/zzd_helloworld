@@ -1,6 +1,22 @@
 -- jdbc_20190208 
 ok / jdbc(DataSource) + JNDI + mysql + Jboss EAP 7.2 + Servlet / jdbc(establish connection by DriverManager)
 
+-- jpa_20190224
+ok
+servlet + jpa + mysql + Spring(Spring framework data access /ORM-JPA /Obtaining an EntityManagerFactory from JNDI)
+
+## Obtaining an EntityManagerFactory from JNDI 
+## Jboss EAP binds EntityManagerFactory with JNDI name
+
+## IoC /Java-based container configuration /@ImportResource("classpath:spring_beans.xml") 
+## how to use Spring IoC in Servlet, use @Autowired in Servelt class
+## web applicaton launch procedures /Servlet EventListener /AnnotationConfigWebApplicationContext /web.xml
+## Spring DAOs with @PersistenceUnit and @PersistenceContext 
+
+## JPA Criteria API
+
+
+
 -- jpa_applicationmanaged_entitymanager_20190217 
 ok / mysql + jpa(application-managed EntityManager)(Hibernate)
 

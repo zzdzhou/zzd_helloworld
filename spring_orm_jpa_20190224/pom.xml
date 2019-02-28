@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jack.helloworld.jpa</groupId>
-    <artifactId>jpa_20190224</artifactId>
+    <artifactId>spring_orm_jpa_20190224</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -57,5 +57,9 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <finalName>${artifactId}-${version}</finalName>
+    </build>
 
 </project>
