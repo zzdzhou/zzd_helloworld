@@ -3,6 +3,9 @@ package jack.helloworld.spring.orm.jpa.dao;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 /**
  * Theme:
  * <p>
@@ -13,6 +16,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserDao {
+
+    private EntityManager ef;
+
+    public void getEmail() {
+
+    }
 
 
 

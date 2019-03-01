@@ -25,8 +25,13 @@ public class AppConfig {
         return emf;
     }*/
 
+    @Bean
     public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
-        return null;
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setPersistenceXmlLocation("classpath:META-INF/spring-persistence.xml");
+        return emf;
     }
+
+    public
 
 }

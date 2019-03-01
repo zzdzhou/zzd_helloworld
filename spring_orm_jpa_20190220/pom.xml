@@ -19,11 +19,15 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.2.14.Final</version>
         </dependency>
-        <!--<dependency>
+
+        <!-- javax -->
+        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
-        </dependency>-->
+        </dependency>
+
+        <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
@@ -35,11 +39,11 @@
             <version>5.1.5.RELEASE</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>8.0</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>

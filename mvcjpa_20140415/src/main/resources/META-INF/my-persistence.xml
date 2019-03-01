@@ -13,7 +13,6 @@
         <class>jack.web.mvcjpa.entities.Order</class>
         <class>jack.web.mvcjpa.entities.OrderLine</class>
         <class>jack.web.mvcjpa.entities.Comment</class>
-        <exclude-unlisted-classes/>
 
         <properties>
             <property name="hibernate.show_sql" value="true"/>
