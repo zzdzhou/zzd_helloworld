@@ -1,5 +1,5 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- this file is replaced by jack.helloworld.jpa.AppConfig.java-->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
@@ -17,8 +17,19 @@
             http://www.springframework.org/schema/jee
             http://www.springframework.org/schema/jee/spring-jee.xsd">
 
+    <context:component-scan base-package="jack"/>
+    &lt;!&ndash;<context:annotation-config/>&ndash;&gt;
 
-    <jee:jndi-lookup id="myEmf" jndi-name="java:/mmalUnitEntityManagerFactory"/>
-    <!-- enable the configuration of transactional behavior based on annotations -->
-    <!--<tx:annotation-driven transaction-manager="txManager"/>&lt;!&ndash; a PlatformTransactionManager is still required &ndash;&gt;-->
-</beans>
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath*:META-INF/my-persistence.xml"/>
+    </bean>
+
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    &lt;!&ndash;<jee:jndi-lookup id="myEmf" jndi-name="java:/datasources/zhibernateDS"/>&ndash;&gt;
+
+
+</beans>-->

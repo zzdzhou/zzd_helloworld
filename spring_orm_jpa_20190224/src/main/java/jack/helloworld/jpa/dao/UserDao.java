@@ -2,6 +2,7 @@ package jack.helloworld.jpa.dao;
 
 import jack.helloworld.jpa.entity.EUser;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -20,6 +21,7 @@ import javax.persistence.criteria.Root;
  * Created on 2019-02-24
  */
 @Repository
+//@Transactional(value = "txManager", timeout = 60)
 public class UserDao {
 
     @PersistenceContext
@@ -31,12 +33,20 @@ public class UserDao {
                 .getSingleResult();
     }
 
+    @Transactional(readOnly = true, timeout = 60)
     public String getEmail(Integer userId) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<EUser> criteria = builder.createQuery(EUser.class);
         Root<EUser> root = criteria.from(EUser.class);
         TypedQuery<EUser> query = em.createQuery(criteria.select(root)
                 .where(builder.equal(root.<Integer> get("id"), userId)));
+        /*
+        // test transaction timeout
+        try {
+            Thread.sleep(1100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         try {
             return query.getSingleResult().getEmail();
         } catch (NoResultException e) {
@@ -45,3 +55,5 @@ public class UserDao {
     }
 
 }
+
+

@@ -1,5 +1,6 @@
 package jack.helloworld.spring.orm.jpa.context;
 
+import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +9,8 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 
 /**
  * Theme:
- * <p>
+ * <p> Spring framework data access /ORM /JPA / LocalContainerEntityManagerFactoryBean
+ *
  * Description:
  *
  * @author Zhengde ZHOU
@@ -18,20 +20,31 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 @ComponentScan(basePackages = "jack.helloworld.spring.orm.jpa")
 public class AppConfig {
 
-    /*@Bean
-    public LocalEntityManagerFactoryBean myEntityManagerFactory() {
-        LocalEntityManagerFactoryBean emf = new LocalEntityManagerFactoryBean();
-        emf.setPersistenceUnitName("mmalUnit");
-        return emf;
-    }*/
-
     @Bean
     public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        // links to an existing JDBC DataSource instead of DataSource JNDI lookup
+        // <jta-data-source> tag in persistence.xml
+        // This is an alternative to keeping the JDBC configuration in {@code persistence.xml}, passing in a Spring-managed DataSource instead.
+//        emf.setJtaDataSource(mysqlXADataSource());
+        // <non-jta-data-source>
+        // emf.setDataSource(mysqlXADataSource());
+
+        // avoid persistence.xml location conflict between spring and the built-in JPA capabilities of a Java EE server.
         emf.setPersistenceXmlLocation("classpath:META-INF/spring-persistence.xml");
         return emf;
     }
 
-    public
+    @Bean
+    public MysqlXADataSource mysqlXADataSource() {
+        MysqlXADataSource ds = new MysqlXADataSource();
+        ds.setUrl("jdbc:mysql://localhost:3306/mmal?serverTimezone=UTC");
+        ds.setUser("root");
+        ds.setPassword("zzde");
+        return ds;
+    }
+
+
 
 }
+
