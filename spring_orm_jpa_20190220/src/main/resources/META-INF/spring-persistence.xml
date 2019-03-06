@@ -18,6 +18,19 @@
         </properties>
     </persistence-unit>
 
+    <persistence-unit name="timesheetUnit" transaction-type="RESOURCE_LOCAL">
+        <description>Remote DB connection in ECS</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!--<jta-data-source>java:/datasources/mmalDS</jta-data-source>-->
+        <class>jack.helloworld.spring.orm.jpa.entity.remotedb.RUser</class>
+        <properties>
+            <property name="jboss.entity.manager.factory.jndi.name" value="java:/EntityManagerFactory"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+        </properties>
+    </persistence-unit>
+
 </persistence>
 
 

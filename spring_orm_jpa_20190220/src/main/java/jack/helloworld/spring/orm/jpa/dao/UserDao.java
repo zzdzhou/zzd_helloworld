@@ -20,7 +20,7 @@ import javax.persistence.criteria.Root;
 @Repository
 public class UserDao {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "mmalUnit")
     private EntityManager em;
 
     public String getEmail(Integer userId) {

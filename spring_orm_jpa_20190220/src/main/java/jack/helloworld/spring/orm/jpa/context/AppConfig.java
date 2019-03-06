@@ -6,6 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 /**
  * Theme:
@@ -18,10 +20,11 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
  */
 @Configuration
 @ComponentScan(basePackages = "jack.helloworld.spring.orm.jpa")
+@EnableTransactionManagement
 public class AppConfig {
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
+    public LocalContainerEntityManagerFactoryBean localContainerEmf() {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         // links to an existing JDBC DataSource instead of DataSource JNDI lookup
         // <jta-data-source> tag in persistence.xml
@@ -32,19 +35,32 @@ public class AppConfig {
 
         // avoid persistence.xml location conflict between spring and the built-in JPA capabilities of a Java EE server.
         emf.setPersistenceXmlLocation("classpath:META-INF/spring-persistence.xml");
+        emf.setPersistenceUnitName("mmalUnit");
+        return emf;
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean remoteEmf() {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setJtaDataSource(mysqlXADataSource());
+        emf.setPersistenceXmlLocation("classpath:META-INF/spring-persistence.xml");
+        emf.setPersistenceUnitName("timesheetUnit");
         return emf;
     }
 
     @Bean
     public MysqlXADataSource mysqlXADataSource() {
         MysqlXADataSource ds = new MysqlXADataSource();
-        ds.setUrl("jdbc:mysql://localhost:3306/mmal?serverTimezone=UTC");
+        ds.setUrl("jdbc:mysql://zzdzhou.cn:3306/timesheet?serverTimezone=UTC");
         ds.setUser("root");
-        ds.setPassword("zzde");
+        ds.setPassword("160Jack#");
         return ds;
     }
 
-
+    @Bean
+    public JtaTransactionManager txManager() {
+        return new JtaTransactionManager();
+    }
 
 }
 
