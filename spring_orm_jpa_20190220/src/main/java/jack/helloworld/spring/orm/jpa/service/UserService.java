@@ -1,6 +1,12 @@
 package jack.helloworld.spring.orm.jpa.service;
 
+import jack.helloworld.spring.orm.jpa.dao.RUserDao;
+import jack.helloworld.spring.orm.jpa.dao.UserDao;
+import jack.helloworld.spring.orm.jpa.entity.EUser;
+import jack.helloworld.spring.orm.jpa.entity.remotedb.RUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Theme:
@@ -12,6 +18,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private RUserDao rUserDao;
+
+    @Transactional
+    public void save2User(EUser eUser, RUser rUser) {
+        userDao.addUser(eUser);
+
+//        rUserDao.addUser(rUser);
+    }
 
 
 }

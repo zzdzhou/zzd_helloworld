@@ -39,7 +39,7 @@ public class AppConfig {
         return emf;
     }
 
-    @Bean
+    /*@Bean
     public LocalContainerEntityManagerFactoryBean remoteEmf() {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setJtaDataSource(mysqlXADataSource());
@@ -55,7 +55,7 @@ public class AppConfig {
         ds.setUser("root");
         ds.setPassword("160Jack#");
         return ds;
-    }
+    }*/
 
     @Bean
     public JtaTransactionManager txManager() {

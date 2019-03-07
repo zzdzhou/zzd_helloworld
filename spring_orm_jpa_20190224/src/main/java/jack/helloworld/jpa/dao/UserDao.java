@@ -54,6 +54,11 @@ public class UserDao {
         }
     }
 
+    @Transactional(timeout = 60)
+    public void addUser(EUser eUser) {
+        em.persist(eUser);
+    }
+
 }
 
 

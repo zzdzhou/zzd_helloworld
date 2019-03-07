@@ -11,6 +11,7 @@ import javax.persistence.*;
  * Created on 2019-03-06
  */
 @Entity
+@Table(name = "user")
 public class RUser {
 
     @Id
@@ -27,6 +28,13 @@ public class RUser {
     private String password;
 
     public RUser() {
+    }
+
+    public RUser(String email, String fullName, String username, String password) {
+        this.email = email;
+        this.fullName = fullName;
+        this.username = username;
+        this.password = password;
     }
 
     public Integer getId() {

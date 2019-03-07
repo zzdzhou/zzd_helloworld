@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jndi.JndiObjectFactoryBean;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
@@ -21,10 +22,17 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @EnableTransactionManagement
 public class AppConfig {
 
-    @Bean
+   /* @Bean
     public JndiObjectFactoryBean emf() {
         JndiObjectFactoryBean emf = new JndiObjectFactoryBean();
         emf.setJndiName("java:/mmalUnitEntityManagerFactory");
+        return emf;
+    }*/
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean emf() {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setPersistenceXmlLocation("classpath:META-INF/persistence.xml");
         return emf;
     }
 
