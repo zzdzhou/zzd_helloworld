@@ -24,6 +24,15 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 public class AppConfig {
 
     @Bean
+    public MysqlXADataSource localDataSource() {
+        MysqlXADataSource ds = new MysqlXADataSource();
+        ds.setUrl("jdbc:mysql://localhost:3306/mmal?serverTimezone=UTC");
+        ds.setUser("root");
+        ds.setPassword("zzde");
+        return ds;
+    }
+
+    @Bean
     public LocalContainerEntityManagerFactoryBean localContainerEmf() {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         // links to an existing JDBC DataSource instead of DataSource JNDI lookup
@@ -36,10 +45,11 @@ public class AppConfig {
         // avoid persistence.xml location conflict between spring and the built-in JPA capabilities of a Java EE server.
         emf.setPersistenceXmlLocation("classpath:META-INF/spring-persistence.xml");
         emf.setPersistenceUnitName("mmalUnit");
+        emf.setJtaDataSource(localDataSource());
         return emf;
     }
 
-    /*@Bean
+    @Bean
     public LocalContainerEntityManagerFactoryBean remoteEmf() {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setJtaDataSource(mysqlXADataSource());
@@ -55,7 +65,7 @@ public class AppConfig {
         ds.setUser("root");
         ds.setPassword("160Jack#");
         return ds;
-    }*/
+    }
 
     @Bean
     public JtaTransactionManager txManager() {

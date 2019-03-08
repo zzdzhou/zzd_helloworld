@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class RUserDao {
 
-//    @PersistenceContext(unitName = "timesheetUnit")
+    @PersistenceContext(unitName = "timesheetUnit")
     private EntityManager em;
 
     public void addUser(RUser rUser) {

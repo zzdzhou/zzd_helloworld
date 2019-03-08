@@ -27,9 +27,19 @@ public class UserService {
 
     @Transactional
     public void save2User(EUser eUser, RUser rUser) {
-        userDao.addUser(eUser);
+        try {
+            userDao.addUser(eUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-//        rUserDao.addUser(rUser);
+        try {
+//            rUser.setId(1);
+            rUserDao.addUser(rUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 

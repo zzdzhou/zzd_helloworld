@@ -5,10 +5,10 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
                 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-    <persistence-unit name="mmalUnit" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="mmalUnit" transaction-type="JTA">
         <description>Persistence unit for Hibernate</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:/datasources/mmalDS</jta-data-source>
+        <!--<jta-data-source>java:/datasources/mmalDS</jta-data-source>-->
         <class>jack.helloworld.spring.orm.jpa.entity.EUser</class>
         <properties>
             <property name="jboss.entity.manager.factory.jndi.name" value="java:/EntityManagerFactory"/>
@@ -18,7 +18,7 @@
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="timesheetUnit" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="timesheetUnit" transaction-type="JTA">
         <description>Remote DB connection in ECS</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--<jta-data-source>java:/datasources/mmalDS</jta-data-source>-->
