@@ -18,6 +18,12 @@
 	
 	/src/main/resources/META-INF/persistence.xml
 )
+
+-- mybatis_20190204
+(
+	ok /mybatis + Java SE 
+
+)
 	
 -- servlet_jta_20190223
 (

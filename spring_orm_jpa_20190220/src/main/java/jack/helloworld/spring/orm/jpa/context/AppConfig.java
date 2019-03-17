@@ -28,7 +28,7 @@ public class AppConfig {
         MysqlXADataSource ds = new MysqlXADataSource();
         ds.setUrl("jdbc:mysql://localhost:3306/mmal?serverTimezone=UTC");
         ds.setUser("root");
-        ds.setPassword("zzde");
+        ds.setPassword("zzde123#");
         return ds;
     }
 
