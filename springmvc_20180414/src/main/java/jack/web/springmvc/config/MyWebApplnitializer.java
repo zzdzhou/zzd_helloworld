@@ -2,7 +2,7 @@ package jack.web.springmvc.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class MyWebApplnitializer extends AbstractAnnotationConfigDispatcherServletInitializer/*implements WebApplicationInitializer*/ {
+/*public class MyWebApplnitializer extends AbstractAnnotationConfigDispatcherServletInitializer*//*implements WebApplicationInitializer*//* {
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return null;
@@ -18,7 +18,7 @@ public class MyWebApplnitializer extends AbstractAnnotationConfigDispatcherServl
         return new String[] {"/"};
     }
 
-    /*@Override
+    *//*@Override
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ac = new AnnotationConfigWebApplicationContext();
         ac.register(WebConfig.class);
@@ -28,5 +28,5 @@ public class MyWebApplnitializer extends AbstractAnnotationConfigDispatcherServl
         ServletRegistration.Dynamic registration = servletContext.addServlet("dispatcherServlet", dispatcherServlet);
         registration.setLoadOnStartup(1);
         registration.addMapping("/");
-    }*/
-}
+    }*//*
+}*/

@@ -27,6 +27,7 @@ public class UserDao {
     private EntityManager em;
 
     public String getEmail(Integer userId) {
+        System.out.println("log - UserDao.em = " + em);
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<EUser> criteria = builder.createQuery(EUser.class);
         Root<EUser> root = criteria.from(EUser.class);
@@ -40,6 +41,7 @@ public class UserDao {
     }
 
     public void addUser(EUser eUser) {
+        System.out.println("log - UserDao.em = " + em);
         em.persist(eUser);
     }
 

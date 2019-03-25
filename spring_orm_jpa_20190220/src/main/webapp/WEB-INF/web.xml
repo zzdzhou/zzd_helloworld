@@ -9,7 +9,7 @@
         <param-name>contextClass</param-name>
         <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
     </context-param>
-     <context-param>
+    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>jack.helloworld.spring.orm.jpa.context.AppConfig</param-value>
     </context-param>

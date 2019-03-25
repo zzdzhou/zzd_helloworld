@@ -1,4 +1,4 @@
-package jack.web.springmvc.controller;
+package jack.helloworld.mybatis.spring.restcontroller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

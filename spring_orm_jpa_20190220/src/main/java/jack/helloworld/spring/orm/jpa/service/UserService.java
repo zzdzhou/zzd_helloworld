@@ -25,7 +25,7 @@ public class UserService {
     @Autowired
     private RUserDao rUserDao;
 
-    @Transactional
+//    @Transactional
     public void save2User(EUser eUser, RUser rUser) {
         try {
             userDao.addUser(eUser);
