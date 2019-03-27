@@ -3,20 +3,18 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>Archetype Created Web Application</display-name>
-
-    <!--<context-param>
+    <context-param>
         <param-name>contextClass</param-name>
         <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>jack.helloworld.spring.orm.jpa.context.AppConfig</param-value>
+        <param-value>jack.helloworld.mybatis.spring.config.RootConfig</param-value>
     </context-param>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>-->
+    </listener>
 
     <servlet>
         <servlet-name>dispatcher</servlet-name>

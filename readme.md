@@ -17,6 +17,12 @@ org.apache.commons.dbcp2.BasicDataSource
 # mybatis_20190204
 ok  
 mybatis + Java SE 
+
+# mybatis_spring_20190317
+
+	Type interface jack.helloworld.mybatis.spring.mapper.ProductMapper is not known to the MapperRegistry.  
+
+
 	
 # servlet_jta_20190223
 ok  
@@ -85,4 +91,5 @@ http://localhost:8080/springmvc_20180414-1.0-SNAPSHOT/hello/greeting
 * Servlet root url  
 {domain}/{project.finalname}/c
 * `MyWebApplnitializer extends AbstractAnnotationConfigDispatcherServletInitializer`  
+
 

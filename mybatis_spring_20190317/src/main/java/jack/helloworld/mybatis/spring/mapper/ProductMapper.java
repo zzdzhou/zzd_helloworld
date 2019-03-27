@@ -4,7 +4,7 @@ import jack.helloworld.mybatis.spring.pojos.EProduct;
 
 public interface ProductMapper {
 
-    EProduct selectOne();
+    EProduct selectOne(Integer id);
 }
 
 
