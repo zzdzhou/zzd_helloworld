@@ -5,9 +5,23 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jack.helloworld.spring.webmvc</groupId>
-	<artifactId>spring_webmvc_20190327</artifactId>
+	<artifactId>spring_webmvc_rest_20190327</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>5.1.5.RELEASE</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
