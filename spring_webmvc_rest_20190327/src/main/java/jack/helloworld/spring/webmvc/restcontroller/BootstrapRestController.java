@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/bootstrap")
 public class BootstrapRestController {
 
-    @GetMapping("/hello")
+    @GetMapping(value = "/hello", produces = "text/plain;charset=utf-8")
     public String hello() {
-        return "hello！";
+        return "hello！你好";
     }
 
 }

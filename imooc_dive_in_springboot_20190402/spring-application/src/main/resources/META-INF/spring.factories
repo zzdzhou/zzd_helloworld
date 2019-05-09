@@ -1,0 +1,3 @@
+org.springframework.context.ApplicationListener=\
+  jack.helloworld.springboot.springapplication.listener.AfterHelloWorldApplicationListener,\
+  jack.helloworld.springboot.springapplication.listener.HelloWorldApplicationListener

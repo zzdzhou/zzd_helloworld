@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" strict="true">
+
+	<Appenders>
+		<Appender type="Console" name="STDOUT">
+			<Layout type="PatternLayout" pattern="%d{yy-MM-dd HH:mm:ss.SSS} [%t] %p %l - %m%n"/>
+		</Appender>
+		<Appender type="RollingFile" name="rollingFile" filePattern="/private/var/log/jack/mybatis_springboot_20190423_yyyyMMdd-kkmmss.log">
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5 MB"/>
+			</Policies>
+			<Layout type="PatternLayout" pattern="%d{yy-MM-dd HH:mm:ss.SSS} [%t] %p %l - %m%n"/>
+		</Appender>
+	</Appenders>
+
+	<Loggers>
+		<logger name="jack.helloworld.mybatis.springboot" level="DEBUG">
+			<!--<AppenderRef ref="STDOUT"/>-->
+		</logger>
+
+		<Root level="INFO">
+			<AppenderRef ref="STDOUT"/>
+			<!--<AppenderRef ref="rollingFile"/>-->
+		</Root>
+	</Loggers>
+</Configuration>
+
+
+

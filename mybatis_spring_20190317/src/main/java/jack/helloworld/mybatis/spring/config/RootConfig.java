@@ -30,12 +30,6 @@ public class RootConfig {
     }
 
     @Bean
-    public ProductMapper productMapper() throws Exception {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
-        return sqlSessionTemplate.getMapper(ProductMapper.class);
-    }
-
-    @Bean
     public MysqlXADataSource mmalDs() {
         MysqlXADataSource ds = new MysqlXADataSource();
         ds.setUrl("jdbc:mysql://localhost:3306/mmal?serverTimezone=UTC");
@@ -43,6 +37,14 @@ public class RootConfig {
         ds.setPassword("zzde123#");
         return ds;
     }
+
+    @Bean
+    public ProductMapper productMapper() throws Exception {
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
+        return sqlSessionTemplate.getMapper(ProductMapper.class);
+    }
+
+
 
     @Bean
     public JtaTransactionManagerFactoryBean txManager() {
