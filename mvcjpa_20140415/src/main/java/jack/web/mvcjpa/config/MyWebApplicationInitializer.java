@@ -1,6 +1,5 @@
 package jack.web.mvcjpa.config;
 
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class MyWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{

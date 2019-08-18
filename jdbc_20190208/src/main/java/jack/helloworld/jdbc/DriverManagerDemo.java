@@ -19,14 +19,14 @@ public class DriverManagerDemo {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mmal?serverTimezone=UTC", "root", "zzde");
-            //con.setAutoCommit(false);
+            con.setAutoCommit(false);
             pstmt = con.prepareStatement("select email from user where id = ?");
             pstmt.setInt(1, 3);
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 email = resultSet.getString("email");
             }
-            //con.commit();
+            con.commit();
             System.out.println("log INFO - " + email);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

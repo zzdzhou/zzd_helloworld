@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jack.helloworld.mybatis.web.mappers.LicenseMapper">
+
+	<select id="getLicenseById" resultType="License">
+		SELECT * FROM licenses WHERE license_id = #{id}
+	</select>
+
+	<update id="updateByLicenseAllocated">
+		UPDATE `licenses` SET `comment` = #{param2}
+		WHERE `license_allocated` = #{param1} LIMIT 1
+	</update>
+
+	<select id="selectLicenseWithOrganization" resultMap="licenseWithOrganization">
+		SELECT *
+		FROM `licenses` l
+			LEFT JOIN `organizations` o ON l.`organization_id` = o.`organization_id`
+		WHERE l.`license_id` = #{id}
+	</select>
+
+	<resultMap id="licenseWithOrganization" type="License">
+		<id property="licenseId" column="license_id"/>
+		<result property="licenseType" column="license_type"/>
+		<result property="productName" column="product_name"/>
+		<result property="licenseMax" column="license_max"/>
+		<result property="licenseAllocated" column="license_allocated"/>
+		<result property="comment" column="comment"/>
+		<association property="organizationId" column="organization_id" resultMap="organization"/>
+	</resultMap>
+
+	<resultMap id="organization" type="Organization">
+		<id property="organizationId" column="organization_id"/>
+		<result property="name" column="name"/>
+		<result property="contactName" column="contact_name"/>
+		<result property="contactEmail" column="contact_email"/>
+		<result property="contactPhone" column="contact_phone"/>
+	</resultMap>
+
+
+
+</mapper>

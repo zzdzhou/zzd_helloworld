@@ -1,0 +1,17 @@
+server:
+    port: 8000
+
+
+spring:
+    rabbitmq:
+        host: localhost
+        port: 5672
+        virtual-host: jack
+        username: test
+        password: test1234
+
+    cloud:
+        stream:
+            bindings:
+                organization:
+                    destination: organization

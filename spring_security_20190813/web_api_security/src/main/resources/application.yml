@@ -1,0 +1,15 @@
+mybatis:
+    # config-location: classpath:mybatis/mybatis-config.xml
+    mapper-locations: classpath:mybatis/mappers/*Mapper.xml
+    type-aliases-package: jack.helloworld.spring.security.api.mybatis.models
+    configuration:
+        map-underscore-to-camel-case: true
+
+
+# Customized properties
+my:
+    datasource:
+        url: jdbc:mysql://localhost:3306/mmal?serverTimeZone=UTC
+        username: root
+        password: zzde123#
+

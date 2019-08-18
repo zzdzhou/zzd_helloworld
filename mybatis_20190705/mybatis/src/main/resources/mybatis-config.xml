@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<properties>
+		<property name="jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="datasource.url" value="jdbc:mysql://localhost:3306/spring_microservice"/>
+		<property name="datasource.username" value="root"/>
+		<property name="datasource.password" value="zzde123#"/>
+	</properties>
+	
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<package name="jack.helloworld.mybatis.models"/>
+	</typeAliases>
+
+	<environments default="develop">
+		<environment id="develop">
+			<transactionManager type="JDBC">
+			</transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}"/>
+				<property name="url" value="${datasource.url}"/>
+				<property name="username" value="${datasource.username}"/>
+				<property name="password" value="${datasource.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="mappers/LicenseMapper.xml"/>
+		<mapper resource="mappers/OrganizationMapper.xml"/>
+	</mappers>
+
+</configuration>
