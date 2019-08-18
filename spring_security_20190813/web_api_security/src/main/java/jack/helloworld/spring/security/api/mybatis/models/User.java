@@ -11,4 +11,10 @@ public class User {
 
     private String password;
 
+    private Role role;
+
+    public enum Role{
+        ADMIN, COMMON
+    }
+
 }

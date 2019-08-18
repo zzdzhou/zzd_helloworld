@@ -1,9 +1,15 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /security
+
 mybatis:
     # config-location: classpath:mybatis/mybatis-config.xml
     mapper-locations: classpath:mybatis/mappers/*Mapper.xml
     type-aliases-package: jack.helloworld.spring.security.api.mybatis.models
     configuration:
         map-underscore-to-camel-case: true
+        default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
 
 
 # Customized properties

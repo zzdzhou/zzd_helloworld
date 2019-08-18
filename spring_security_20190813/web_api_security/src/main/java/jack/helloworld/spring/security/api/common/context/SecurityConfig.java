@@ -1,5 +1,6 @@
 package jack.helloworld.spring.security.api.common.context;
 
+import jack.helloworld.spring.security.api.mybatis.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -42,9 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // todo
         http
                 .authorizeRequests()
-                //.requestMatchers(request -> request.antma)
-                .antMatchers("/**/notfiltered").authenticated()
-                .anyRequest().permitAll()// 匹配任何request url
+                // 相对路径; / 根目录，根目录为 realmname + ${server.servlet.context-path}; ** 匹配多级目录;
+                .antMatchers("/admin/**").hasRole(User.Role.ADMIN.name())
+                .antMatchers("/**/notfiltered").permitAll()
+                .anyRequest().authenticated()// 匹配任何request url
                 .and()
                 .httpBasic()
                 .and()

@@ -1,5 +1,6 @@
 package jack.helloworld.spring.security.api.security;
 
+import jack.helloworld.spring.security.api.mybatis.models.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,9 +16,9 @@ public class UserDetailsImpl implements UserDetails {
     private int id;
     private String username;
     private String password;
-    private List<Role> roles;
+    private List<User.Role> roles;
 
-    public UserDetailsImpl(int id, String username, String password, List<Role> roles) {
+    public UserDetailsImpl(int id, String username, String password, List<User.Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -27,8 +28,8 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        for (User.Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
         }
         return authorities;
     }

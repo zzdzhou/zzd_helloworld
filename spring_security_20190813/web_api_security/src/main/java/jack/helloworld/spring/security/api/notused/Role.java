@@ -1,7 +1,8 @@
-package jack.helloworld.spring.security.api.security;
+package jack.helloworld.spring.security.api.notused;
 
 import lombok.Data;
 
+/*
 @Data
 public class Role {
 
@@ -16,4 +17,4 @@ public class Role {
     public Role(String name) {
         this.name = name;
     }
-}
+}*/

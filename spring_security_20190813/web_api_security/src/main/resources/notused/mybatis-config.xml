@@ -12,7 +12,9 @@
 	<typeAliases>
 		<package name="jack.helloworld.spring.security.api.mybatis.models"/>
 	</typeAliases>-->
-
-
+	
+	<typeHandlers>
+		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+	</typeHandlers>
 
 </configuration>

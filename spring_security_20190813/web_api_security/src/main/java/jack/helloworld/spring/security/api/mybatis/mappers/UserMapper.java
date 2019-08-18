@@ -12,4 +12,6 @@ public interface UserMapper {
 
     List<User> getAllUser();
 
+    List<User> getByRole(Integer role);
+
 }
