@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration strict="true">
+
+    <Appenders>
+        <Appender type="Console" name="STDOUT">
+            <Layout type="PatternLayout" pattern="%d{yy-MM-dd HH:mm:ss.SSS} [%t] %p %l - %m%n"/>
+        </Appender>
+    </Appenders>
+
+    <Loggers>
+        <logger name="jack.javacore.logging.log4j.Log4jDemo" level="INFO" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </logger>
+
+        <Root level="DEBUG">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>

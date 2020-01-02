@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jack.helloworld.mybatis.typehandler.mybatis.mapper.UserMapper">
+
+	<select id="findAllByParam" resultMap="user">
+		SELECT *
+		FROM `user` WHERE 1
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<if test="active != null">
+			AND active = #{active}
+		</if>
+		<if test="email != null">
+			AND email = #{email}
+		</if>
+	</select>
+
+	<resultMap id="user" type="User" autoMapping="true">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+	</resultMap>
+
+</mapper>
+
+		<!--typeHandler="org.apache.ibatis.type.StringTypeHandler"-->
+		<!--typeHandler="jack.helloworld.mybatis.typehandler.mybatis.typehandlers.CustomizedStringTypeHandler"-->

@@ -1,0 +1,13 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+        username: root
+        password: zzde123#
+
+mybatis:
+    mapper-locations: classpath:mapper/*Mapper.xml
+    type-handlers-package: jack.helloworld.mybatis.typehandler.mybatis.typehandlers
+    #,org.apache.ibatis.type
+    type-aliases-package: jack.helloworld.mybatis.typehandler.entities
+    configuration:
+        map-underscore-to-camel-case: true
