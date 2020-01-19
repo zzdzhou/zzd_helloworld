@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>jack.helloworld.activiti</groupId>
+	<artifactId>activiti7_20191012</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<modules>
+		<module>activiti6_standalone_20191201</module>
+		<module>activiti6_springboot_20191202</module>
+		<module>activiti6_20191026</module>
+		<module>db_tables</module>
+		<module>spring_security</module>
+
+	</modules>
+
+
+</project>

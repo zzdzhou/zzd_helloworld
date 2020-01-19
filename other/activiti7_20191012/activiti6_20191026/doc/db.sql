@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS `employee`(
+	`id` INT AUTO_INCREMENT PRIMARY KEY,
+	`username` VARCHAR(100) UNIQUE,
+	`password` VARCHAR(200)
+);
+

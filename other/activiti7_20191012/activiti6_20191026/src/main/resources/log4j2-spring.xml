@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration strict="true" packages="jack.project.mmall">
+	<properties>
+		<property name="filePath">/data/log/Java_core_play/activiti7_20191012/activiti7_20191026/%d{yyyy-MM-dd}.%i.log</property>
+	</properties>
+
+	<Appenders>
+		<Appender name="STOUT" type="Console">
+			<Layout type="PatternLayout" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%t] %C{1}.java #%M():%L --- %m%n"/>
+		</Appender>
+		<Appender name="FILE" type="RollingFile" filePattern="${filePath}" append="true">
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1MB"/>
+				<TimeBasedTriggeringPolicy interval="24"/>
+			</Policies>
+			<Layout type="PatternLayout" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%t] %C{1}.java #%M():%L --- %m%n"/>
+		</Appender>
+	</Appenders>
+
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="STOUT"/>
+			<AppenderRef ref="FILE"/>
+		</Root>
+		<!--<logger name="" level="DEBUG" additivity="true">
+		</logger>-->
+	</Loggers>
+</Configuration>
+
+
+

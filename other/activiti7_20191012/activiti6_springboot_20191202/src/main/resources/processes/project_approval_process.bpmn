@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/testm1575245830311" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" expressionLanguage="http://www.w3.org/1999/XPath" id="m1575245830311" name="" targetNamespace="http://www.activiti.org/testm1575245830311" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="project_approval_process" isClosed="false" isExecutable="true" name="项目审批流程" processType="None">
+    <extensionElements>
+      <yaoqiang:description/>
+      <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724"/>
+      <yaoqiang:page background="#FFFFFF" horizontalCount="1" verticalCount="1"/>
+    </extensionElements>
+    <userTask activiti:candidateGroups="PMO" activiti:exclusive="true" completionQuantity="1" id="PMO_approval" implementation="##unspecified" isForCompensation="false" name="PMO 审核" startQuantity="1">
+      <extensionElements>
+        <yaoqiang:style fontStyle="0"/>
+      </extensionElements>
+    </userTask>
+    <startEvent id="the_start" isInterrupting="true" name="开始" parallelMultiple="false"/>
+    <sequenceFlow id="_7" sourceRef="PMO_approval" targetRef="PMO_gateway"/>
+    <exclusiveGateway gatewayDirection="Diverging" id="PMO_gateway" name="PMO 审批结果"/>
+    <userTask activiti:exclusive="true" id="BU_approval" name="项目负责人审批"/>
+    <sequenceFlow id="_2" sourceRef="PMO_gateway" targetRef="BU_approval"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="_6" name="ExclusiveGateway"/>
+    <sequenceFlow id="_8" sourceRef="BU_approval" targetRef="_6"/>
+    <endEvent id="the_end" name="结束"/>
+    <sequenceFlow id="_10" sourceRef="_6" targetRef="the_end"/>
+    <sequenceFlow id="_9" sourceRef="the_start" targetRef="PMO_approval"/>
+    <serviceTask activiti:exclusive="true" id="_11" name="ServiceTask"/>
+    <sequenceFlow id="_12" sourceRef="PMO_gateway" targetRef="_11"/>
+    <sequenceFlow id="_13" sourceRef="_6" targetRef="_11"/>
+    <sequenceFlow id="_14" sourceRef="_11" targetRef="the_end"/>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="project_approval_process">
+      <bpmndi:BPMNShape bpmnElement="PMO_approval" id="Shape-PMO_approval">
+        <dc:Bounds height="55.0" width="85.0" x="295.0" y="220.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="the_start" id="Shape-the_start">
+        <dc:Bounds height="32.0" width="32.0" x="160.0" y="235.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="PMO_gateway" id="Shape-PMO_gateway" isMarkerVisible="false">
+        <dc:Bounds height="32.0" width="32.0" x="455.0" y="230.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BU_approval" id="Shape-BU_approval">
+        <dc:Bounds height="55.0" width="110.0" x="555.0" y="220.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="110.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" id="Shape-_6" isMarkerVisible="false">
+        <dc:Bounds height="32.0" width="32.0" x="760.0" y="230.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="the_end" id="Shape-the_end">
+        <dc:Bounds height="32.0" width="32.0" x="910.0" y="230.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" id="Shape-_11">
+        <dc:Bounds height="55.0" width="85.0" x="585.0" y="325.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_13" id="BPMNEdge__13" sourceElement="_6" targetElement="_11">
+        <di:waypoint x="780.0" y="258.0"/>
+        <di:waypoint x="780.0" y="352.0"/>
+        <di:waypoint x="670.0" y="352.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12" id="BPMNEdge__12" sourceElement="PMO_gateway" targetElement="_11">
+        <di:waypoint x="470.0" y="262.0"/>
+        <di:waypoint x="470.0" y="295.0"/>
+        <di:waypoint x="585.0" y="352.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_14" id="BPMNEdge__14" sourceElement="_11" targetElement="the_end">
+        <di:waypoint x="627.5" y="380.0"/>
+        <di:waypoint x="810.0" y="405.0"/>
+        <di:waypoint x="926.0" y="262.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2" id="BPMNEdge__2" sourceElement="PMO_gateway" targetElement="BU_approval">
+        <di:waypoint x="486.5" y="246.5"/>
+        <di:waypoint x="555.0" y="247.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7" id="BPMNEdge__7" sourceElement="PMO_approval" targetElement="PMO_gateway">
+        <di:waypoint x="380.0" y="247.5"/>
+        <di:waypoint x="455.5" y="246.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.96" width="6.0" x="261.2" y="240.02"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8" sourceElement="BU_approval" targetElement="_6">
+        <di:waypoint x="665.0" y="247.5"/>
+        <di:waypoint x="760.0" y="246.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9" id="BPMNEdge__9" sourceElement="the_start" targetElement="PMO_approval">
+        <di:waypoint x="191.99218559171948" y="251.5"/>
+        <di:waypoint x="295.0" y="247.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10" id="BPMNEdge__10" sourceElement="_6" targetElement="the_end">
+        <di:waypoint x="792.0" y="246.0"/>
+        <di:waypoint x="910.0" y="246.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
